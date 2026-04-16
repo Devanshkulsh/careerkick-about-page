@@ -76,16 +76,16 @@ export default function FeatureSection() {
     <section className="w-full bg-brand-surface text-brand-navy py-28 px-6">
       <div className="max-w-7xl mx-auto">
         <div className="mb-14 text-center">
-          <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
+          <h2 className="font-heading text-4xl font-bold tracking-tight text-brand-navy sm:text-5xl">
             Counseling Programs Tailored To Your Career Path
           </h2>
           <p className="mt-3 text-sm text-brand-navy/70 sm:text-base">
-            Explore specialized guidance options designed for medical and allied health admissions.
+            Explore specialized guidance options designed for medical and allied
+            health admissions.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-
           {/* LEFT */}
           <div className="space-y-10">
             {featuresLeft.map((item, i) => (
@@ -107,74 +107,71 @@ export default function FeatureSection() {
 
           {/* CENTER CARD */}
           <div className="relative flex justify-center">
+            {/* Glow */}
+            <div className="absolute w-[320px] h-80 bg-brand-royal/10 blur-3xl rounded-full" />
 
-          {/* Glow */}
-          <div className="absolute w-[320px] h-[320px] bg-brand-royal/10 blur-3xl rounded-full" />
-
-          <div className="relative rounded-3xl p-4 bg-white backdrop-blur-xl border border-brand-navy/10 shadow-xl shadow-brand-navy/10">
-
-            <div className="rounded-2xl p-4 bg-brand-surface border border-brand-navy/10">
-              
-              {/* BEFORE AFTER SLIDER */}
-              <div
-                className="relative w-[260px] h-[260px] overflow-hidden rounded-xl cursor-col-resize"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const percent = (x / rect.width) * 100;
-                  setPosition(percent);
-                }}
-              >
-                {/* BASE IMAGE */}
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={index}
-                    src={images[index]}
-                    initial={{ opacity: 0, scale: 1.05 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute inset-0 w-full h-full object-cover grayscale"
-                  />
-                </AnimatePresence>
-
-                {/* REVEALED IMAGE */}
-                <motion.div
-                  className="absolute inset-0 overflow-hidden"
-                  animate={{ width: `${position}%` }}
-                  transition={{ duration: 0.1, ease: "linear" }}
+            <div className="relative rounded-3xl p-4 bg-white backdrop-blur-xl border border-brand-navy/10 shadow-xl shadow-brand-navy/10">
+              <div className="rounded-2xl p-4 bg-brand-surface border border-brand-navy/10">
+                {/* BEFORE AFTER SLIDER */}
+                <div
+                  className="relative w-65 h-65 overflow-hidden rounded-xl cursor-col-resize"
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                  onMouseMove={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const percent = (x / rect.width) * 100;
+                    setPosition(percent);
+                  }}
                 >
+                  {/* BASE IMAGE */}
                   <AnimatePresence mode="wait">
                     <motion.img
-                      key={index + "-color"}
+                      key={index}
                       src={images[index]}
                       initial={{ opacity: 0, scale: 1.05 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.98 }}
                       transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                      className="w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover grayscale"
                     />
                   </AnimatePresence>
-                </motion.div>
 
-                {/* SLIDER LINE */}
-                <motion.div
-                  className="absolute top-0 bottom-0 w-[2px] bg-brand-navy"
-                  animate={{ left: `${position}%` }}
-                  transition={{ duration: 0.1, ease: "linear" }}
-                />
+                  {/* REVEALED IMAGE */}
+                  <motion.div
+                    className="absolute inset-0 overflow-hidden"
+                    animate={{ width: `${position}%` }}
+                    transition={{ duration: 0.1, ease: "linear" }}
+                  >
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={index + "-color"}
+                        src={images[index]}
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                        className="w-full h-full object-cover"
+                      />
+                    </AnimatePresence>
+                  </motion.div>
 
-                {/* HANDLE */}
-                <motion.div
-                  className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-navy rounded-full shadow"
-                  animate={{ left: `calc(${position}% - 8px)` }}
-                  transition={{ duration: 0.1, ease: "linear" }}
-                />
+                  {/* SLIDER LINE */}
+                  <motion.div
+                    className="absolute top-0 bottom-0 w-0.5 bg-brand-navy"
+                    animate={{ left: `${position}%` }}
+                    transition={{ duration: 0.1, ease: "linear" }}
+                  />
+
+                  {/* HANDLE */}
+                  <motion.div
+                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-brand-navy rounded-full shadow"
+                    animate={{ left: `calc(${position}% - 8px)` }}
+                    transition={{ duration: 0.1, ease: "linear" }}
+                  />
+                </div>
               </div>
             </div>
-          </div>
           </div>
 
           {/* RIGHT */}
