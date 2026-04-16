@@ -4,17 +4,18 @@ import {
   fadeUpVariants,
   staggerContainerVariants,
 } from "../../constants/variants";
-import type { BrandStoryContent } from "../../types/about.types";
 import { SectionWrapper } from "../shared/SectionWrapper";
 
-type StoryHighlightWithMedia = BrandStoryContent["highlights"][number] & {
+interface StoryHighlightWithMedia {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
   imageCaption?: string;
-};
+}
 
-interface BrandStoryContentWithMedia extends Omit<
-  BrandStoryContent,
-  "highlights"
-> {
+interface BrandStoryContentWithMedia {
+  title: string;
   highlights: StoryHighlightWithMedia[];
 }
 
