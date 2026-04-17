@@ -112,7 +112,9 @@ function HeroSectionComponent() {
   }, [HERO_CONTENT.primaryCta.href]);
 
   const handleSecondaryClick = useCallback(() => {
-    const targetElement = document.getElementById(HERO_CONTENT.secondaryCta.sectionId);
+    const targetElement = document.getElementById(
+      HERO_CONTENT.secondaryCta.sectionId,
+    );
     targetElement?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [HERO_CONTENT.secondaryCta.sectionId]);
 
@@ -179,7 +181,8 @@ function HeroSectionComponent() {
         className="absolute inset-0"
         style={{
           y,
-          background: "linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)",
+          background:
+            "linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)",
         }}
       />
 
@@ -190,6 +193,23 @@ function HeroSectionComponent() {
       >
         {particleNodes}
       </motion.div>
+
+      <motion.a
+        href="/"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+        className="absolute left-4 top-4 z-20 inline-flex items-center rounded-xl border border-white/20 bg-white/10 px-3 py-2 backdrop-blur-md sm:left-6 sm:top-6"
+        aria-label="CareerKick Home"
+      >
+        <img
+          src="/logo-bg.png"
+          alt="CareerKick logo"
+          width={140}
+          height={40}
+          className="h-8 w-auto sm:h-9"
+        />
+      </motion.a>
 
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
         <AnimatePresence mode="wait">

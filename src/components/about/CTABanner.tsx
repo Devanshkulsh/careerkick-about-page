@@ -1,74 +1,203 @@
-/**
- * Final call-to-action banner section.
- */
-import { motion } from 'framer-motion'
-import { ArrowRight, Phone } from 'lucide-react'
-import { memo, useCallback } from 'react'
-import type { CtaBannerContent } from '../../types/about.types'
-import { SectionWrapper } from '../shared/SectionWrapper'
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import {
+  ArrowRight,
+  Phone,
+  GraduationCap,
+  BookOpen,
+  School,
+  Stethoscope,
+} from "lucide-react";
+import { memo, useCallback, useRef } from "react";
 
-const CTA_BANNER_CONTENT: CtaBannerContent = {
-  title: 'Ready To Plan Your Dream Admission Journey?',
+const CTA_BANNER_CONTENT = {
+  title: "Ready To Plan Your Dream Admission Journey?",
   description:
     "Connect with CareerKick's expert counselors and build a personalized strategy for your next admission cycle.",
   primaryAction: {
-    label: 'Book Counseling Session',
-    href: 'https://careerkick.in',
+    label: "Book Counseling Session",
+    href: "https://careerkick.in",
   },
   secondaryAction: {
-    label: 'Call Us Now',
-    href: 'tel:+919876543210',
+    label: "Call Us Now",
+    href: "tel:+917390950914",
   },
-}
+};
+
+const FloatingElement = ({
+  children,
+  className,
+  delay = 0,
+  duration = 6,
+}: any) => (
+  <motion.div
+    animate={{
+      y: [0, -20, 0],
+      rotate: [0, 10, 0],
+    }}
+    transition={{
+      duration,
+      repeat: Infinity,
+      delay,
+      ease: "easeInOut",
+    }}
+    className={`absolute hidden lg:flex items-center justify-center rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md p-5 text-white/30 shadow-2xl ${className}`}
+  >
+    {children}
+  </motion.div>
+);
 
 function CTABannerComponent() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   const handlePrimaryClick = useCallback(() => {
-    window.open(CTA_BANNER_CONTENT.primaryAction.href, '_blank', 'noopener,noreferrer')
-  }, [CTA_BANNER_CONTENT.primaryAction.href])
+    window.open(CTA_BANNER_CONTENT.primaryAction.href, "_blank");
+  }, []);
 
   const handleSecondaryClick = useCallback(() => {
-    window.location.href = CTA_BANNER_CONTENT.secondaryAction.href
-  }, [CTA_BANNER_CONTENT.secondaryAction.href])
+    window.location.href = CTA_BANNER_CONTENT.secondaryAction.href;
+  }, []);
+
+  // Mouse Parallax Logic
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springX = useSpring(mouseX, { stiffness: 150, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 150, damping: 20 });
+
+  // Subtle rotation for the container
+  const rotateX = useTransform(springY, [-500, 500], [5, -5]);
+  const rotateY = useTransform(springX, [-500, 500], [-5, 5]);
+
+  // Inverse movement for icons to create depth
+  const iconX = useTransform(springX, [-500, 500], [20, -20]);
+  const iconY = useTransform(springY, [-500, 500], [20, -20]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const x = e.clientX - (rect.left + rect.width / 2);
+    const y = e.clientY - (rect.top + rect.height / 2);
+    mouseX.set(x);
+    mouseY.set(y);
+  };
 
   return (
-    <SectionWrapper id="cta-banner" className="bg-brand-navy px-6 py-20 sm:px-8 lg:px-14">
+    <section
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        mouseX.set(0);
+        mouseY.set(0);
+      }}
+      className="relative w-full bg-black py-20 px-4 sm:py-32 sm:px-6 overflow-hidden text-white flex items-center justify-center"
+    >
+      {/* 🌌 LAYER 1: BACKGROUND GRADIENT */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.15),transparent_70%)] pointer-events-none" />
+
+      {/* 🎓 LAYER 2: FLOATING ELEMENTS */}
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] as const }}
-        className="mx-auto w-full max-w-6xl rounded-[2rem] border border-white/20 bg-gradient-to-br from-brand-royal via-brand-dark to-brand-navy px-8 py-12 text-white shadow-[0_34px_90px_-36px_rgba(15,52,96,0.72)]"
+        style={{ x: iconX, y: iconY, perspective: 1000 }}
+        className="absolute inset-0 z-0 pointer-events-none max-w-7xl mx-auto"
       >
-        <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">{CTA_BANNER_CONTENT.title}</h2>
-        <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/85">{CTA_BANNER_CONTENT.description}</p>
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <motion.button
-            type="button"
-            onClick={handlePrimaryClick}
-            whileHover={{ scale: 1.06, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 rounded-full bg-brand-cta px-6 py-3 text-sm font-semibold text-white"
-          >
-            {CTA_BANNER_CONTENT.primaryAction.label}
-            <ArrowRight size={16} />
-          </motion.button>
-          <motion.button
-            type="button"
-            onClick={handleSecondaryClick}
-            whileHover={{ scale: 1.06, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white"
-          >
-            <Phone size={16} />
-            {CTA_BANNER_CONTENT.secondaryAction.label}
-          </motion.button>
-        </div>
+        {/* Top Left */}
+        <FloatingElement
+          className="top-[10%] left-[5%] sm:left-[10%]"
+          duration={5}
+        >
+          <GraduationCap size={38} />
+        </FloatingElement>
+
+        {/* Top Right */}
+        <FloatingElement
+          className="top-[15%] right-[5%] sm:right-[10%]"
+          delay={1}
+          duration={7}
+        >
+          <Stethoscope size={30} />
+        </FloatingElement>
+
+        {/* Bottom Left */}
+        <FloatingElement
+          className="bottom-[15%] left-[8%] sm:left-[12%]"
+          delay={0.5}
+          duration={6}
+        >
+          <BookOpen size={34} />
+        </FloatingElement>
+
+        {/* Bottom Right */}
+        <FloatingElement
+          className="bottom-[10%] right-[8%] sm:right-[12%]"
+          delay={1.5}
+          duration={8}
+        >
+          <School size={40} />
+        </FloatingElement>
       </motion.div>
-    </SectionWrapper>
-  )
+
+      {/* ⚡ LAYER 3: AMBIENT LIGHTING */}
+      <motion.div
+        animate={{ opacity: [0, 0, 0.2, 0] }}
+        transition={{ duration: 1, repeat: Infinity, repeatDelay: 8 }}
+        className="absolute inset-0 bg-blue-400/5 mix-blend-overlay pointer-events-none"
+      />
+
+      {/* 📦 LAYER 4: MAIN CONTENT CARD */}
+      <div className="w-full max-w-4xl relative z-10">
+        <motion.div
+          style={{ rotateX, rotateY }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl px-6 py-16 sm:px-16 sm:py-24 text-center shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden"
+        >
+          {/* Inner Decorative Glow */}
+          <div className="absolute -top-24 -left-24 w-48 h-48 bg-blue-600/20 blur-[100px] pointer-events-none" />
+          <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-purple-600/20 blur-[100px] pointer-events-none" />
+
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+            {CTA_BANNER_CONTENT.title}
+          </h2>
+
+          <p className="mt-8 text-white/50 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            {CTA_BANNER_CONTENT.description}
+          </p>
+
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5">
+            <motion.button
+              onClick={handlePrimaryClick}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 20px rgba(255,255,255,0.3)",
+              }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto group flex items-center justify-center gap-3 rounded-full px-10 py-5 text-sm font-bold text-black bg-white transition-all"
+            >
+              {CTA_BANNER_CONTENT.primaryAction.label}
+              <ArrowRight
+                size={20}
+                className="transition-transform group-hover:translate-x-1"
+              />
+            </motion.button>
+
+            <motion.button
+              onClick={handleSecondaryClick}
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: "rgba(255,255,255,0.1)",
+              }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto group flex items-center justify-center gap-3 rounded-full px-10 py-5 text-sm font-bold text-white border border-white/20 bg-transparent backdrop-blur-md transition-all"
+            >
+              <Phone size={18} />
+              {CTA_BANNER_CONTENT.secondaryAction.label}
+            </motion.button>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }
 
-export default memo(CTABannerComponent)
-
-
-
+export default memo(CTABannerComponent);
