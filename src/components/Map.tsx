@@ -218,6 +218,7 @@ const add3dBuildings = (map: maplibregl.Map, center: [number, number]) => {
     return
   }
 
+  try {
   const findLabelLayer = () => {
     return map
       .getStyle()
@@ -394,6 +395,9 @@ const add3dBuildings = (map: maplibregl.Map, center: [number, number]) => {
       labelLayerId,
     )
   }
+  } catch {
+    // Style may still be in transition on some production devices; retry via event hooks.
+  }
 }
 
 const buildDefaultLocationUrl = (center: [number, number], address?: string) => {
@@ -465,6 +469,9 @@ function MapComponent({
       style: MAP_STYLE_URL,
       center: center as LngLatLike,
       zoom,
+      canvasContextAttributes: {
+        antialias: true,
+      },
       pitch: 58,
       bearing: -22,
       attributionControl: false,
@@ -474,7 +481,14 @@ function MapComponent({
     map.dragRotate.disable()
     map.touchZoomRotate.disableRotation()
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
-    map.on('load', () => add3dBuildings(map, center))
+
+    const ensure3dLayers = () => {
+      add3dBuildings(map, center)
+    }
+
+    map.on('load', ensure3dLayers)
+    map.on('styledata', ensure3dLayers)
+    map.on('idle', ensure3dLayers)
 
     const marker = new maplibregl.Marker({
       element: markerElement,
@@ -502,6 +516,9 @@ function MapComponent({
     markerRef.current = marker
 
     return () => {
+      map.off('load', ensure3dLayers)
+      map.off('styledata', ensure3dLayers)
+      map.off('idle', ensure3dLayers)
       markerRef.current?.remove()
       mapRef.current?.remove()
       markerRef.current = null
