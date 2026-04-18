@@ -83,10 +83,10 @@ const TimelineCard = memo(function TimelineCard({
       <div className="absolute inset-0 rounded-3xl bg-brand-royal/10 opacity-0 blur-2xl transition duration-500 group-hover:opacity-100" />
 
       <div
-        className={`relative rounded-3xl p-[1px] ${
+        className={`relative rounded-3xl p-px ${
           milestone.highlight
-            ? "bg-gradient-to-b from-yellow-400/60 via-yellow-400/20 to-transparent"
-            : "bg-gradient-to-b from-brand-navy/20 via-brand-royal/10 to-transparent"
+            ? "[background:linear-gradient(to_bottom,rgba(200,240,37,0.6),rgba(200,240,37,0.2),transparent)]"
+            : "[background:linear-gradient(to_bottom,rgba(255,255,255,0.1),rgba(255,255,255,0.05),transparent)]"
         }`}
       >
         <article className="flex flex-col overflow-hidden rounded-3xl border border-brand-navy/10 bg-white shadow-[0_24px_60px_-40px_rgba(15,52,96,0.45)]">
@@ -99,18 +99,18 @@ const TimelineCard = memo(function TimelineCard({
               loading="lazy"
             />
 
-            {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
+            {/* Overlay linear */}
+            <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent opacity-60" />
 
             {/* Year Tag */}
             <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/40 backdrop-blur-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white">
-              <CalendarDays size={12} className="text-yellow-400" />
+              <CalendarDays size={12} className="text-[#c8f025]" />
               {milestone.year}
             </div>
           </div>
 
           {/* Text Content */}
-          <div className="flex flex-grow flex-col justify-center p-6 sm:p-7">
+          <div className="flex grow flex-col justify-center p-6 sm:p-7">
             <h3 className="text-xl font-bold text-brand-navy leading-tight sm:text-2xl">
               {milestone.title}
             </h3>
@@ -153,13 +153,13 @@ const MilestoneItem = memo(function MilestoneItem({
 
         {/* Center Indicator */}
         <div className="relative flex justify-center pt-12 md:pt-20">
-          <div className="z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border-4 border-white bg-brand-navy shadow-xl ring-2 ring-yellow-400">
-            <span className="text-[10px] sm:text-xs font-black text-yellow-400">
+          <div className="z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border-4 border-white bg-brand-navy shadow-xl ring-2 ring-[#c8f025]">
+            <span className="text-[10px] sm:text-xs font-black text-[#c8f025]">
               {milestone.year}
             </span>
           </div>
           {/* Glow effect */}
-          <div className="absolute top-12 md:top-20 h-12 w-12 rounded-full bg-yellow-400/20 blur-xl" />
+          <div className="absolute top-12 md:top-20 h-12 w-12 rounded-full bg-[#c8f025] blur-xl" />
         </div>
 
         {/* Right Side (Mobile Default + Desktop Right) */}
@@ -215,7 +215,7 @@ function JourneyTimelineComponent() {
       id="journey-timeline"
       className="relative w-full overflow-hidden bg-white px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-32"
     >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(15,52,96,0.04),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-linear(circle_at_50%_0%,rgba(15,52,96,0.04),transparent_50%)]" />
 
       <div className="relative z-10 mx-auto max-w-6xl">
         <div className="mb-20 text-center">
@@ -234,18 +234,18 @@ function JourneyTimelineComponent() {
 
         <div ref={timelineRef} className="relative">
           {/* Vertical Line */}
-          <div className="absolute bottom-0 left-[24px] top-0 w-[2px] bg-brand-navy/10 md:left-1/2 md:-translate-x-1/2" />
+          <div className="absolute bottom-0 left-6 top-0 w-0.5 bg-brand-navy/10 md:left-1/2 md:-translate-x-1/2" />
 
           {/* Animated Line */}
           <svg
-            className="absolute left-[24px] top-0 h-full w-[2px] md:left-1/2 md:-translate-x-1/2"
+            className="absolute left-6 top-0 h-full w-0.5 md:left-1/2 md:-translate-x-1/2"
             viewBox="0 0 2 100"
             preserveAspectRatio="none"
             aria-hidden="true"
           >
             <motion.path
               d="M1 0 L1 100"
-              stroke="#facc15"
+              stroke="#c8f025"
               strokeWidth="4"
               fill="none"
               style={{ pathLength }}

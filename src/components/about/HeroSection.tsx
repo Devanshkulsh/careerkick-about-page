@@ -267,7 +267,18 @@ function HeroSectionComponent() {
             onClick={handlePrimaryClick}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="w-full rounded-full bg-brand-cta px-7 py-3 text-sm font-semibold tracking-wide text-white shadow-lg shadow-brand-cta/35 transition-colors hover:bg-brand-cta/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-cta focus-visible:ring-offset-2 focus-visible:ring-offset-brand-navy sm:w-auto"
+            style={{
+              backgroundColor: "#c8f025",
+              color: "#000000",
+              boxShadow: "0 10px 15px -3px rgb(200 240 37 / 0.35)",
+            }}
+            className="w-full rounded-full px-7 py-3 text-sm font-semibold tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:w-auto"
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor = "#b8e020")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "#c8f025")
+            }
           >
             {HERO_CONTENT.primaryCta.label}
           </motion.button>

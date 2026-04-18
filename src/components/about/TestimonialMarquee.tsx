@@ -66,7 +66,7 @@ function buildStarNodes(rating: number, keyPrefix: string) {
         key={`${keyPrefix}-${index}`}
         size={14}
         className={
-          isFilled ? "fill-yellow-400 text-yellow-400" : "text-yellow-400/30"
+          isFilled ? "fill-[#c8f025] text-[#c8f025]" : "text-yellow-400/30"
         }
       />
     );
@@ -82,12 +82,12 @@ const TestimonialCard = memo(function TestimonialCard({
 }) {
   return (
     <motion.div whileHover={{ y: -6 }} className="w-full shrink-0 group">
-      <div className="relative rounded-2xl p-[1px] bg-gradient-to-b from-white/20 to-transparent h-full">
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 h-full transition duration-500 group-hover:bg-white/[0.08] relative overflow-hidden">
+      <div className="relative rounded-2xl p-px bg-linear-to-b from-white/20 to-transparent h-full">
+        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 h-full transition duration-500 group-hover:bg-white/8 relative overflow-hidden">
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 blur-lg bg-white/6 rounded-2xl transition duration-500 pointer-events-none" />
 
           <div className="flex justify-between text-[10px] sm:text-xs text-gray-400 relative z-10">
-            <h3 className="font-semibold text-white truncate max-w-[150px]">
+            <h3 className="font-semibold text-white truncate max-w-37.5">
               {testimonial.name}
             </h3>
             <span className="shrink-0">{testimonial.date}</span>
@@ -230,7 +230,7 @@ function TestimonialMarqueeComponent() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(255,255,255,0.05),transparent_50%)] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative z-10 text-center">
-        <div className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/10 px-3 py-1.5 text-[10px] sm:text-xs font-semibold tracking-wider text-yellow-400 uppercase">
+        <div className="inline-flex items-center rounded-full border border-yellow-400/30 bg-yellow-400/10 px-3 py-1.5 text-[10px] sm:text-xs font-semibold tracking-wider text-[#c8f025] uppercase">
           EXCELLENT · 4.9/5 · 274+ Reviews
         </div>
 

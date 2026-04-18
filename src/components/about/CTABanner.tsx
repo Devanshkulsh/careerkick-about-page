@@ -150,7 +150,7 @@ function CTABannerComponent() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl px-6 py-16 sm:px-16 sm:py-24 text-center shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden"
+          className="relative rounded-[2.5rem] border border-white/10 bg-white/2 backdrop-blur-2xl px-6 py-16 sm:px-16 sm:py-24 text-center shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] overflow-hidden"
         >
           {/* Inner Decorative Glow */}
           <div className="absolute -top-24 -left-24 w-48 h-48 bg-blue-600/20 blur-[100px] pointer-events-none" />

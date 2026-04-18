@@ -8,24 +8,24 @@ const YOUTUBE_CHANNELS = [
     name: "CareerKick JEE",
     description:
       "Counseling explainers, round-wise strategy, and rank analysis for JEE aspirants.",
-    subscribers: "2,00,000+",
-    channelUrl: "https://www.youtube.com",
+    subscribers: "42,500+",
+    channelUrl: "https://www.youtube.com/@CAREERKICKJEE",
   },
   {
     id: "neet-channel",
     name: "CareerKick NEET",
     description:
       "Medical admission guidance with detailed coverage of NEET counseling updates and options.",
-    subscribers: "2,00,000+",
-    channelUrl: "https://www.youtube.com",
+    subscribers: "2,05,000+",
+    channelUrl: "https://www.youtube.com/@careerkickneet",
   },
   {
     id: "mba-channel",
     name: "CareerKick MBA",
     description:
       "MBA college insights, selection strategy, and profile-building guidance for management aspirants.",
-    subscribers: "2,00,000+",
-    channelUrl: "https://www.youtube.com",
+    subscribers: "1720+",
+    channelUrl: "https://www.youtube.com/@careerkickmba",
   },
 ];
 

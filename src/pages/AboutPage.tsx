@@ -8,7 +8,7 @@ import CTABanner from "../components/about/CTABanner";
 import HeroSection from "../components/about/HeroSection";
 // import ImpactStats from '../components/about/ImpactStats'
 import JourneyTimeline from "../components/about/JourneyTimeline";
-import LeadershipTeam from "../components/about/LeadershipTeam";
+// import LeadershipTeam from "../components/about/LeadershipTeam";
 import MissionVision from "../components/about/MissionVision";
 import OfficeLocations from "../components/about/OfficeLocations";
 // import ServicesGrid from '../components/about/ServicesGrid'
@@ -26,7 +26,7 @@ function AboutPageComponent() {
         <MissionVision />
         <FeatureSection />
         <WhyChooseUs />
-        <LeadershipTeam />
+        {/* <LeadershipTeam /> */}
         <YouTubeChannels />
         <OfficeLocations />
         <TestimonialMarquee />
